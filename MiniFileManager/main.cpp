@@ -34,12 +34,21 @@ class MiniFileManager{
             }
         }
         void cd(const string &folder){
-            FS::path newpath=current_path / folder;
-            if(FS::exists(newpath)&&FS::is_directory(newpath)){
-                current_path=newpath;
-            } 
-            else{
-                cout<<"Directory is not found."<<endl;
+            //using try will helps us not to crash while running 
+            //especially in user facing programs
+            
+            try{
+                FS::path newpath=FS::canonical(current_path/folder);
+                //this handles the symlinks like .. for parent folder and . for curr folder
+                if(FS::exists(newpath)&&FS::is_directory(newpath)){
+                    current_path=newpath;
+                } 
+                else{
+                    cout<<"Directory is not found."<<endl;
+                }
+            }
+            catch(const FS::filesystem_error &e){
+                cout << " Error: "<< e.what() << endl;
             }
 
         }
