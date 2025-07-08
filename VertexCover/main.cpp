@@ -11,19 +11,25 @@
         int V=0;
         vector < vector < int > > Edges;
         Graph(){
-            V=0;
+            clear();
         }
         Graph(int v){
+            clear();
             V=v;
             Edges.resize(V);
             
         }
         void SetVertices(int v){
+            clear();
             V=v;
             Edges.resize(V);
         }
         void add_edge(int a,int b){
-            if(a>=V || b>=V || a<0 || b<0 || a==b ) return ;
+            if(a>=V || b>=V || a<0 || b<0 || a==b ) {
+                cout << "Invalid\n";
+                exit(1);
+            }
+            if(find(Edges[a].begin(),Edges[a].end(),b)!=Edges[a].end())return;
             Edges[a].push_back(b);
             Edges[b].push_back(a);
             E++;
@@ -31,14 +37,14 @@
         //If you do take_edges it will clear() all the edges;
         void Take_Graph(){Edges.clear();
             int t;
-            cout << "Enter the no.of Vertices in the graph.\n" << endl;
+            cout << "Enter the no.of Vertices in the graph." << endl;
             cin>>t;
             SetVertices(t);
-            cout << "Enter the no.of Edges, followed by the edges.\n" <<
-            "Graph must be in the 0-based indexing.\n";
+            cout << "Enter the no.of Edges." << endl;
             cin >> t;
             for ( int i=0; i < t; i++){
                 int a,b;
+                cout << "Edge " << i+1 << ":";
                 cin >> a >> b;
                 add_edge(a,b);
             }
@@ -67,11 +73,16 @@
         //     }
         // }
         void PrintGraph(){
-            for(int i=0; i < V ; i++){ cout << i << " : ";
+            cout << "Graph consists of ";
+            cout << V << " vertices and ";
+            cout << E << " edges\n";
+            for(int i=0; i < V ; i++){ 
                 for(int j=0; j<Edges[i].size(); j++){
-                    cout << Edges[i][j] << "  ";
+                    if(Edges[i][j]>i){
+                        cout << i << ", " << Edges[i][j];
+                        cout << endl;
+                    }
                 }
-                cout << endl;
             }
         }
         void describe(int i){//nonzero for printgraph 0 for only the vertices and edges;   
@@ -91,11 +102,11 @@
             random_device rd;
             mt19937 gen(rd());
             uniform_real_distribution<> dis(0.0, 1.0);
-            double x,y;
+            double x;
             for(int i=0;i<size;i++){
                 for(int j=i+1;j<size;j++){
-                    x=dis(gen),y=dis(gen);
-                    if(abs(x-y) > threshold)add_edge(i,j);
+                    x=dis(gen);
+                    if(x < threshold)add_edge(i,j);
                 }
             }
         }
@@ -229,7 +240,7 @@
             int best_cost = G.V;
             //best indicates the best accepted seen solution;
             int delta;
-            int max_iter = pow(10,6);
+            int max_iter = pow(10,4);
             double Temp = 1000;
             double Alpha = 0.95;//cooling rate  
             double eps=1e-6;
@@ -239,7 +250,7 @@
             vector < int > curr=best;
             vector < int > next_neighbor;
             int curr_cost=G.V;
-            int batches=10;
+            int batches=5;
             //start with several feasible setcovers to find optimal;
             for(int j=0;j<batches;j++){
                     // cout<<"batch "<<j<<endl;
@@ -281,28 +292,71 @@
         G.add_edge(3,4);
         G.add_edge(3,5);
         G.add_edge(4,5);
-        //use the following if you are giving the graph as input
-        /*
-        Graph G;
-        G.Take_Graph();
-        */
-        //if you just need to check how it is working use the fill graph
-        //which helps in creating the random graph
-        /*
-        Graph G;
-        G.FillGraph(10,0.6);
-        //10 is no.of vertices and 0.6 density of edges(between 0 to 1);
-        G.PrintGraph();
-        //this is used for visualisation of the graph;
-        */
+        cout << "Choose the way you want to give the input.\n";
+        cout << "1.Hardcoded\n";
+        cout << "2.In the terminal.\n";
+        cout << "3.Go with a Random Graph,(Just want to see how this works).\n";
+        int choice;
+        cout << "Enter the Choice = ";
+        cin >> choice;
+        if(choice==1);
+        else if(choice==2)G.Take_Graph();
+        else if(choice==3){
+            cout << "Enter the Number of Vertices that graph should have.\n";
+            int vertices;
+            cin >> vertices;
+            if(vertices<1){
+                cout << "Invalid.\n";
+                return 0;
+            }
+            double density;
+            cout << "Enter the density of Edges should be in (0,1].\n";
+            cin >> density;
+            if(density>1||density<=0){
+                cout<<"Invalid\n";
+                return 0;
+            }
+            G.FillGraph(vertices,density);
+            G.PrintGraph();
+        }
         VertexCover Vset(G);
         vector < int > OptCover=Vset.Bruteforce();
         vector < int > ApproxCover=Vset.ApproxAlgo();
         vector < int > SACover=Vset.Simulated_Annealing();
+        cout << "Optimal Cover " << endl;
         for(auto x : OptCover)cout<<x<<" ";
         cout<<endl;
+        cout << "Approximate Cover" << endl;
         for(auto x : ApproxCover)cout<<x<<" ";
         cout<<endl;
+        cout << "Simulated Annealing Cover" << endl;
         for(auto x: SACover)cout<<x<<" ";
         cout<<endl;
     }
+    /*
+    Choose the way you want to give the input.
+1.Hardcoded
+2.In the terminal.
+3.Go with a Random Graph,(Just want to see how this works).
+Enter the Choice = 3
+Enter the Number of Vertices that graph should have.
+5
+Enter the density of Edges should be in (0,1].
+0.6
+Graph consists of 5 vertices and 8 edges
+0, 1
+0, 3
+1, 2
+2, 3
+2, 4
+3, 4
+3, 5
+4, 5
+Optimal Cover 
+1 3 4 
+Approximate Cover
+1 2 3 4 
+Simulated Annealing Cover
+1 3 4 
+
+    */

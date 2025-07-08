@@ -14,7 +14,7 @@ In a graph, a **vertex cover** is a set of vertices such that every edge has at 
 
 - ✅ **Brute Force Approach**  
   Explores all possible subsets to find the minimum vertex cover.  
-  ⚠️ Limited to graphs with ≤ 63 vertices due to bitmasking.
+  ⚠️ Suitable only for small inputs due to exponential time.
 
 - ⚡ **Approximation Algorithm**  
   Greedily picks random edges and includes both endpoints.  
@@ -50,3 +50,13 @@ In a graph, a **vertex cover** is a set of vertices such that every edge has at 
 ```bash
 g++ main.cpp -o vertex_cover
 ./vertex_cover
+```
+## 📊 Sample Output Format
+
+Following are the sample inputs and output:
+- 1.
+  ![IO1](Assets/IO1.png)
+- 2.
+  ![IO2](Assets/IO2.png)
+- 3.
+  ![IO3](Assets/IO3.png)
