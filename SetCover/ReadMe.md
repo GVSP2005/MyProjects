@@ -61,3 +61,12 @@ g++ main.cpp -o set_cover
 
 - ✅ Enable users to play with parameters of Simulated Annealing  
 - 📈 Visualization of the data  
+
+---
+## 📊 Sample Output Format
+
+Following are the sample inputs and output:
+- 1.
+  ![IO1](Assets/IO1.png)
+- 2.
+  ![IO2](Assets/IO2.png)

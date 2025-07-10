@@ -35,13 +35,15 @@ In a graph, a **vertex cover** is a set of vertices such that every edge has at 
 
 - `Graph` class  
   - Builds and represents the undirected graph
-  - Supports edge addition, visualization, and random graph generation
+  - Supports edge addition and random graph generation
 
 - `VertexCover` class  
   - Implements the three algorithms to solve the problem
 
 - `main()` function  
-  - Demonstrates how to use the algorithms
+  - Offers user choice for input method  
+  - Runs all three algorithms and prints results  
+  - Displays a table comparing the sizes of the resulting covers
 
 ---
 
@@ -51,6 +53,16 @@ In a graph, a **vertex cover** is a set of vertices such that every edge has at 
 g++ main.cpp -o vertex_cover
 ./vertex_cover
 ```
+
+---
+
+## 🚀 Future Plan
+
+- ✅ Enable users to play with parameters of Simulated Annealing  
+- 📈 Visualization of the Graphs  
+
+---
+
 ## 📊 Sample Output Format
 
 Following are the sample inputs and output:

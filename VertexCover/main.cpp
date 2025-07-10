@@ -331,32 +331,10 @@
         cout<<endl;
         cout << "Simulated Annealing Cover" << endl;
         for(auto x: SACover)cout<<x<<" ";
-        cout<<endl;
+        
+        cout << "\n| Algorithm           | Size of Cover |\n";
+        cout << "|---------------------|---------------|\n";
+        cout << "| Brute Force         | " << OptCover.size() << "             |\n";
+        cout << "| ApproxCover         | " << ApproxCover.size() << "             |\n";
+        cout << "| Simulated Annealing | " << SACover.size() << "             |\n";
     }
-    /*
-    Choose the way you want to give the input.
-1.Hardcoded
-2.In the terminal.
-3.Go with a Random Graph,(Just want to see how this works).
-Enter the Choice = 3
-Enter the Number of Vertices that graph should have.
-5
-Enter the density of Edges should be in (0,1].
-0.6
-Graph consists of 5 vertices and 8 edges
-0, 1
-0, 3
-1, 2
-2, 3
-2, 4
-3, 4
-3, 5
-4, 5
-Optimal Cover 
-1 3 4 
-Approximate Cover
-1 2 3 4 
-Simulated Annealing Cover
-1 3 4 
-
-    */
