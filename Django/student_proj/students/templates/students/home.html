@@ -1,0 +1,13 @@
+{% extends "students/base.html" %}
+
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h1 class="text-primary">🎓 Welcome to the Student Portal</h1>
+        <p class="lead">Manage student records efficiently and easily.</p>
+
+        <a href="/students/" class="btn btn-success m-2">📄 View Students</a>
+        <a href="/admin/" class="btn btn-dark m-2">🔐 Admin Login</a>
+    </div>
+{% endblock %}

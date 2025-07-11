@@ -1,0 +1,28 @@
+->created project 
+django-admin startproject student_project
+in the folder this will create that required folder which includes settings,urls,
+->next running the manage.py 
+python manage.py runserver
+this will show the website for us how it will look
+->create an app
+python manage.py startapp students
+this will create the students folder
+don't forget it to add in the installed apps in settings
+which enables us to use when proj started
+
+-->create a model
+which helps us to draw information from the database.
+__str__ func is when we print that object.
+
+-->after this we make migrations to add a sql table
+
+--> now we change views code which renders the http response
+
+--> now we add templates folder to folder which contains views.py models.py ..
+ 
+
+--> i didn't understand much added some students urls and so on 
+
+--> now it was ready the page 
+
+--> have to add admin login edit details using createsuperuser something like this
