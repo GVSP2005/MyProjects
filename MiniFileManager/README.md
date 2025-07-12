@@ -29,3 +29,10 @@ Download the `main.cpp` file and run:
 ```bash
 g++ main.cpp -o main
 ./main 
+```
+
+---
+
+## 📊 Sample Output Format
+
+- ![sample output](Assets/IO1.png)
