@@ -59,7 +59,7 @@ python manage.py runserver
 ## **Access the Application**
 
 ### **Student list page:**  
-na http://127.0.0.1:8000/students/
+ http://127.0.0.1:8000/students/
 
 ### **Admin panel:**  
-na http://127.0.0.1:8000/admin/
+ http://127.0.0.1:8000/admin/
