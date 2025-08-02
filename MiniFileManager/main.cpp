@@ -5,7 +5,26 @@
 
 using namespace std;
 namespace FS = std::filesystem;
-class MiniFileManager{
+class IFileManager {
+public:
+    virtual void status() = 0;
+    virtual void help() = 0;
+    virtual void pwd() = 0;
+    virtual void ls() = 0;
+    virtual void cd(const std::string& folder) = 0;
+    virtual void mkdir(const std::string& folder) = 0;
+    virtual void rmdir(const std::string& folder) = 0;
+    virtual void touch(const std::string& filename) = 0;
+    virtual void rm(const std::string& file) = 0;
+    virtual void read(const std::string& filename) = 0;
+    virtual void write(const std::string& filename) = 0;
+    virtual void levelup() = 0;
+    virtual void rename(const std::string& s) = 0;
+    
+    virtual ~IFileManager() = default;
+};
+
+class MiniFileManager : public IFileManager {
     private:
         FS::path current_path;
     public:
@@ -13,27 +32,27 @@ class MiniFileManager{
         MiniFileManager(){
             current_path = FS::current_path();
         }
-        void status(){cout<<"\033[34m";
+        void status() override{cout<<"\033[34m";
             cout << "~" << current_path <<"$";
             cout<<"\033[0m";
         }
-        void help(){
+        void help() override{
             cout << "List of all Commands" << endl;
             cout << "pwd, ls, cd <dir>, mkdir <dir>, rmdir <dir>,\n" <<
                   "touch <file>, rm <file>,rename <oldname>  <newname>,\n" <<
                   "cd .., read <file>, write <file>\n";
         }
-        void pwd(){
+        void pwd() override{
             cout<<current_path<<endl;
         }
-        void ls(){
+        void ls() override{
             for(auto &content: FS::directory_iterator(current_path)){
                 if(content.is_directory())cout<<"📁 ";
                 else if(content.is_regular_file())cout<<"📃 ";
                 cout<<content.path().filename()<<endl;
             }
         }
-        void cd(const string &folder){
+        void cd(const string &folder) override{
             //using try will helps us not to crash while running 
             //especially in user facing programs
             
@@ -52,22 +71,22 @@ class MiniFileManager{
             }
 
         }
-        void mkdir(const string &folder){
+        void mkdir(const string &folder) override{
             if(!FS::create_directory(current_path/folder))cout<<"📁 Folder already exists";
 
         }
-        void rmdir(const string &folder){
+        void rmdir(const string &folder) override{
             FS::remove_all(current_path/folder);
         }
-        void touch(const string&filename){
+        void touch(const string&filename) override{
             ofstream file(current_path/filename);
             file.close();
         }
-        void rm(const string &file){
+        void rm(const string &file) override{
             FS::remove(current_path/file);
 
         }
-        void read(const string&filename){
+        void read(const string&filename) override{
             string line;
             ifstream file(current_path/filename);
             if(!file){
@@ -79,7 +98,7 @@ class MiniFileManager{
             }
 
         }
-        void write(const string&filename){
+        void write(const string&filename) override{
             ofstream file(current_path/filename);
             string line;
             cout<<"Enter text (end the text with '~' on newline)"<<endl;
@@ -89,12 +108,12 @@ class MiniFileManager{
             }
 
         }
-        void levelup(){
+        void levelup() override{
             if(current_path.has_parent_path()){
                 current_path=current_path.parent_path();
             }
         }
-        void rename(const string &s){
+        void rename(const string &s) override{
             vector < string > v;
             stringstream ss(s);
             string word;
@@ -120,7 +139,8 @@ class MiniFileManager{
         }
 };
 int main(){
-    MiniFileManager fm;
+    MiniFileManager mfm;
+    IFileManager &fm=mfm;
     string input;
     cout << "Mini File Manager.\n" << "Type help for commands.\n" ;
     while (true) {
