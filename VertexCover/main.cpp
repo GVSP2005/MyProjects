@@ -42,6 +42,7 @@
             SetVertices(t);
             cout << "Enter the no.of Edges." << endl;
             cin >> t;
+            cout<<"Enter the edges in 0 based index.\n";
             for ( int i=0; i < t; i++){
                 int a,b;
                 cout << "Edge " << i+1 << ":";
@@ -154,7 +155,7 @@
         vector < int > neighbor(vector < int > &vec){
             random_device rd;
             mt19937 gen(rd());
-            uniform_real_distribution<> dis(0,G.V-1);
+            uniform_int_distribution<> dis(0,G.V-1);
             vector < int > w=vec;
             int idx=dis(gen);
             if(w[idx]==1)w[idx]=0;
@@ -291,7 +292,7 @@
         G.add_edge(2,4);
         G.add_edge(3,4);
         G.add_edge(3,5);
-        G.add_edge(4,5);
+        G.add_edge(3,6);
         cout << "Choose the way you want to give the input.\n";
         cout << "1.Hardcoded\n";
         cout << "2.In the terminal.\n";

@@ -5,6 +5,6 @@ from .models import Student
 class StudentAdmin(admin.ModelAdmin):
     list_display = ('name', 'roll_number', 'branch', 'email', 'created_at')
     search_fields = ('name', 'roll_number')
-    list_filter = ('branch', 'created_at')
-    ordering = ('roll_number',)
+    list_filter = ('branch',)
+    ordering = ('branch','roll_number',)
     readonly_fields = ('created_at',)

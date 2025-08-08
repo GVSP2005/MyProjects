@@ -154,7 +154,7 @@
         vector < int > neighbor(vector < int > &vec){
             random_device rd;
             mt19937 gen(rd());
-            uniform_real_distribution<> dis(0,G.V-1);
+            uniform_int_distribution<> dis(0,G.V-1);
             vector < int > w=vec;
             int idx=dis(gen);
             if(w[idx]==1)w[idx]=0;
